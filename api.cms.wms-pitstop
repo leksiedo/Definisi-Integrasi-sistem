@@ -1,0 +1,25 @@
+# CMS - Mengirim data pelanggan ke WMS
+import requests
+
+url = "https://api.wms-pitstop.com/update_customer"
+headers = {
+    "Authorization": "Bearer your_access_token",
+    "Content-Type": "application/json"
+}
+data = {
+    "customer_id": "12345",
+    "name": "leksi edowai",
+    "email": "leksiedowai@example.com"
+}
+
+response = requests.post(url, headers=headers, json=data)
+if response.status_code == 200:
+    print("Data berhasil dikirim ke WMS!")
+else:
+    print("Gagal mengirim data:", response.text)
+
+# WMS - Mendapatkan stok spare part untuk CMS
+def get_spare_part_stock():
+    url = "https://api.cms-pitstop.com/get_stock"
+    response = requests.get(url, headers={"Authorization": "Bearer your_access_token"})
+    return response.json()
